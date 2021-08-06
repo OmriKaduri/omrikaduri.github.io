@@ -1,7 +1,7 @@
 title: Kaduri's blog
 email: kaduriomri@gmail.com
 description: Document my path to understand cool things in AI
-baseurl: "/" # the subpath of your site, e.g. /blog
+baseurl: "/ok" # the subpath of your site, e.g. /blog
 url: "https://omrikaduri.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  OmriKaduri
 domain: omrikaduri.github.io
