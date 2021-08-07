@@ -37,7 +37,8 @@ This work motivated researchers from Stanford Research Institute, which worked o
 
 
 ![General form]({{ '/assets/images/shakey.jpg' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *Shakey the robot, a high-impact research project from the 60s. Oh, and why "Shakey", you ask?  Well, ["it shakes like hell and moves around"](https://www.computerhistory.org/revolution/artificial-intelligence-robotics/13/289).*
 
 ## Classical AI Planning Assumptions ##
@@ -77,13 +78,15 @@ Yet, a problem arises. How can we come up with a heuristic, which should encode 
 In 1998, the [HSP algorithm](https://bonetblai.github.io/reports/aips98-competition.pdf) proposed a method to approximate the heuristic. Essentially, they propose to **decouple** the goal conditions and compute the number of actions from a given state to satisfy each condition separately. Then, the heuristic value would be the sum of all actions to achieve all conditions.
 
 ![General form]({{ '/assets/images/AI_heuristic.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *Value of heuristic in the state s is the sum of actions to achieve each condition, p, of the goal G.*
 
 To compute the number of actions to satisfy each condition, we iteratively updating the following function until no changes is observed in its values:
 
 ![General form]({{ '/assets/images/AI_number_of_actions.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *The number of actions to achieve a condition, p, is updated iteratively until the function does not change.*
 
 At each iteration, we apply all actions whose corresponding preconditions hold in the current state (s).
@@ -94,7 +97,8 @@ Although, we can create a less informative but admissible heuristic if we choose
 
 
 ![General form]({{ '/assets/images/AI_admissible.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *An admissible heuristic is given by counting the largest number of actions to achieve one of the independent conditions of the goal.*
 
 ### Go Backwards! ###

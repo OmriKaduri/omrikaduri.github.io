@@ -31,7 +31,8 @@ In the previous post, we learned how to represent a planning problem with uncert
 A simple motivating example of sensor errors and limitations is planning for the recycling robot. The recycling robot can pick objects and drop them in different trash cans while obeying some predefined logic of what objects should be placed in which trash cans. Yet, while picking an object, the robot does not know if the trash can is full or not, since his camera is not pointing towards the trash can. This illustrates a **sensor limitation**. Moreover, when the robot camera does point towards the trash can, it has some inherent error and might not identify that it is full. This illustrates a **sensor error**. Both of those examples produce a partially observable system.
 
 ![General form]({{ '/assets/images/alphabet_robot.jpg' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *AlphaBet [EveryDay robot](https://x.company/projects/everyday-robots/), staring (with uncertainty) at trash cans.*
 
 ## POMDP - Representing Partial Observability ##
@@ -39,7 +40,8 @@ To represent this added uncertainty, the Partial Observability MDP (POMDP) has b
 
 ![General form]({{ '/assets/images/
 POMDP_observation.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *The observation function. It models the probability of observing  o when action a is applied in state s'.*
 
 ## Markov Property in POMDP ##
@@ -53,25 +55,29 @@ A naive solution is extending the definition of current observation to include a
 So, how do we actually maintain the belief state? Specifically, given a currently assigned probability to each state, an action we perform, and an observation we observe, how do we update those probabilities? Formally, we ask how to compute:
 
 ![General form]({{ '/assets/images/POMDP_belief.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *Updating the belief state **b'** probability of state **s`** after being in belief state **b**, applying action **a**, and observing **o**.*
 
 Using basic probability theory (Bayes' rule and marginalization), as described in [section 3.3 of this paper](https://people.csail.mit.edu/lpk/papers/aij98-pomdp.pdf), we find that this probability is being updated according to the **transition** function, **observation** function, and current **belief state**. Formally, the formula to update the probability of state **s'** is:
 
 ![General form]({{ '/assets/images/POMDP_belief_update.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *The updated probability of state **s'**, after applying action **a** and observing **o** at belief state **b(s)**. T and O are transition and observation functions.*
 
 Given this definition of belief state and the method of updating the belief state according to observations, we change the definition of the **transition function** accordingly. Remember that it assigns a probability of arriving state **s'** after applying action **a** at state **s**. We simply replace the regular (certain) state with the new belief state.
 
 ![General form]({{ '/assets/images/POMDP_belief_update2.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *The belief state MDP transition function. It assigns a probability of arriving belief state **b'** after applying action **a** at belief state **b**.*
 
 Finally, we define the reward function as follows:
 
 ![General form]({{ '/assets/images/POMDP_belief_reward.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *The belief state MDP reward function. It computes a weighted average of the original reward by multiplying it by the probability of each state.*
 
 Given this definition of a **belief state MDP**, which is a representation of the POMDP problem that satisfies the Markov property more efficiently, we now seek algorithms that find the optimal policy for it.
@@ -87,38 +93,44 @@ However, applying those algorithms to the belief state MDP is not trivial, as th
 Recall the definition of the value function for MDP as a weighted  average of the values of possible next states, weighted by their probability of occurring:
 
 ![General form]({{ '/assets/images/MDP_value.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *The value function of policy **π**, evaluated at state **s**.*
 
 Generalizing that value function to include partial observability is done by computing the expected value of the next state. This is the weighted average of the value of the next state weighted by the probability of observing each possible observation.
 
 
 ![General form]({{ '/assets/images/POMDP_value.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *The POMDP value function of policy **π**, evaluated at state **s**. Note that the difference is that we take a weighted average of all possible observations.*
 
 However, we already know that the agent will never know the exact state of the world, so we need to define the **value function for a belief state**. We get this by (once again) computing a weighted average of every possible state weighted by its probability of occurring (i.e., the belief state).
 
 ![General form]({{ '/assets/images/Belief_value.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *The belief-state MDP value function of policy **π**, evaluated at **belief state b**.*
 
 Note that we can represent this value function in vector notation as the dot product of two vectors:
 
 ![General form]({{ '/assets/images/Belief_vector_not.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *The belief-state MDP value function is represented in vector notation.*
 
 Now, we can define the problem of finding the optimal policy for a belief-state MDP as the following optimization problem:
 
 ![General form]({{ '/assets/images/belief_optimal.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *The optimal policy is the policy that maximizes the value function of the belief state MDP.*
 
 Observe that this function is **piece-wise linear** (in b) and convex. If you wonder why this is the case, let look at the following value function for a belief state of a system with 2 possible states. Since it has 2 possible states, the belief state can be represented as one number (as those probabilities sum to 1). Therefore, in the figure below, the x-axis represents the probability we assign for the system to be in state **s1** and the y-axis is the value function. Each one of the lines represents a different policy (P1, P2, and P3 accordingly), and it is clear that those policies are linear with respect to the belief state. Furthermore, the bold line, which describes the optimal policy for **each belief state, selects the action suggested by the policy that gives the highest value function**. This optimal policy is piece-wise linear and convex.
 
 ![General form]({{ '/assets/images/belief_piece-wise.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *The value function of several policies is evaluated for the belief state of a system with one state only.*
 
 Therefore, the problem of finding the optimal policy reduces to finding those bold lines induced by the policies with the highest value for each belief state. This is the basic idea underlying algorithms that find the optimal policy for POMDPs. I will not dive further into how those algorithms actually do it, but I encourage you to read this [great paper](https://people.csail.mit.edu/lpk/papers/aij98-pomdp.pdf) about POMDPs optimal algorithms.

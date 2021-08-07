@@ -107,6 +107,15 @@ img {
     margin: 0 auto;
 }
 
+.caption {
+  max-width: 80%;
+  display: block;
+  margin: 6px auto;
+  text-align: center;
+  font-size: .9rem;
+  color: light-grey;
+}
+
 /**
  * Figures
  */

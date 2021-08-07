@@ -32,7 +32,8 @@ One might suggest naive solutions to that problem. For example, we can monitor (
 
 
 ![General form]({{ '/assets/images/uncertainty.jpg' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *Some level of uncertainty exists in almost anything. How can we take it into account when planning?*
 
 ## MDP - Representing Uncertainty In Planning ##
@@ -46,7 +47,8 @@ A crucial assumption underlying the modeling of a planning problem as an MDP is 
 Formally, according to the Markov property, the **transition function** is defined as:
 
 ![General form]({{ '/assets/images/MDP_transition.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *The transition function. It models the probability of reaching state Sj when action Ak is applied in state Si.*
 
 ## Optimality ##
@@ -61,13 +63,15 @@ Before proceeding to the algorithms that aim to find an optimal policy for the M
 Algorithms that solve an MDP aim to find the optimal policy. We defined it as the policy that yields, on average, the highest reward from every state. Mathematically, we wish to find the policy that maximizes a value function overall states. The **value function** at state s for a policy (denoted by π) is:
 
 ![General form]({{ '/assets/images/MDP_value.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *The value function of policy **π**, evaluated at state s.*
 
 Finding the optimal policy boils down to solving the following optimization problem:
 
 ![General form]({{ '/assets/images/MDP_optimal_value.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *The optimal policy is the policy that chooses the action that maximizes the value function for every state.*
 
 If reading those formulas feels intimidating or unintuitive, just think a moment about what they basically mean. They suggest that to figure out what action to take in each state to achieve the optimal policy, we just need to average over all possible states, follow the policy from that state, collect the rewards, and weigh each of them by its probability of occurring. Run it over your head, and it will suddenly seem like a pretty naive brute-force solution.
@@ -82,7 +86,8 @@ The most commonly-known algorithms for this optimization problem, named value it
 The **policy iteration** algorithm alternates between two stages - policy **evaluation** and policy **improvement**. At the evaluation stage, we treat the current policy as fixed and compute the value function for each state. At the improvement stage, we modify the policy to choose the best action for each state according to the value function we evaluated at the last stage. We perform a couple of evaluation and improvement steps **until no change is made** to the policy. In other words, the improvement step does not change the action to take in every state. The sequence of stages performed will be as:
 
 ![General form]({{ '/assets/images/policy_iteration.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *A sequence of evaluation & improvement stages performed by policy iteration algorithm.*
 
 The **value iteration** algorithm suggests combining those two stages into one stage. Starting with an initial value function set to zero (i.e., all states have the value 0), it updates the value function by iterating over all possible actions for each state and choosing the action that maximizes the current rewards plus the next-state value function. It does so until no change to the value function is made for all states. Then, using the optimal value function, it constructs the optimal policy by choosing the action that maximizes the value function for each state.
@@ -100,7 +105,8 @@ MMDP specifies a decentralized MDP for a multi-agent system, where each agent kn
 ## Coordination Problem ##
 
 ![General form]({{ '/assets/images/MDP_coordination.png' | relative_url }})
-{: class="center"}
+
+{:.caption}
 *A two-agent coordination problem.*
 
 This problem is generally referred to as the **coordination problem**. There are mainly three approaches to solve it. First, one may assume the agents' ability to **[communicate](https://www.jair.org/index.php/jair/article/view/10304/24597)** ("Let's turn left!"). Second, **[shared conventions](https://www.cs.toronto.edu/~cebly/Papers/tark96.pdf)** might be defined that would result in a consistent pick of an optimal policy for all agents ("Choose actions lexicographically. If both left and right are optional, choose left!"). Third, if not shared convention or communication is given, the agents can **[learn to coordinate](https://www.cs.toronto.edu/~cebly/Papers/tark96.pdf)** if several games can be played ("Ah-ah. I see you choose to go left in this situation. See you next time!"). We will not dive into the different algorithms that solve the coordination problem. I encourage you to follow the links above for further information.

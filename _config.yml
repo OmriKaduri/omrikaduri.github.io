@@ -11,6 +11,7 @@ twitter_username: omri_kaduri
 highlighter: rouge
 author: Omri Kaduri
 excerpt_separator: <!--more-->
+theme: jekyll-theme-hacker
 
 plugins:
   - jekyll-feed
