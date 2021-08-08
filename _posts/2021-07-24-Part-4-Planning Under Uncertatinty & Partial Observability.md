@@ -37,8 +37,7 @@ A simple motivating example of sensor errors and limitations is planning for the
 ## POMDP - Representing Partial Observability ##
 To represent this added uncertainty, the Partial Observability MDP (POMDP) has been suggested to extend the MDP by incorporating **observations** and their **probability of occurrence** conditional on the state of the environment. Remember that we defined MDP by **actions, states, transition function, and reward function**. Now we add a set of **observations** and a corresponding **observation** function that assigns a probability for each triplet of (s,a,o). It defines the probability of observing **o** after applying action **a** at state **s**. Formally, the observation function is defined as:
 
-![General form]({{ '/assets/images/
-POMDP_observation.png' | relative_url }})
+![General form]({{ '/assets/images/POMDP_observation.png' | relative_url }})
 
 {:.caption}
 *The observation function. It models the probability of observing  o when action a is applied in state s'.*
