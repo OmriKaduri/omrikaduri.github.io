@@ -47,13 +47,14 @@
 
     <link rel="shortcut icon" href="{{ '/assets/Great-Ball.ico' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
-
     {%- feed_meta -%}
-    {%- if jekyll.environment == 'production' and site.google_analytics -%}
+    {%- if site.google_analytics -%}
       {%- include google-analytics.html -%}
     {%- endif -%}
     <meta name="google-site-verification" content="8WyESBREoTrirjayBXCqmSG7e2sS9lc6Z_DYwpk5JZ0" />
+
+
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
 
 
     <!-- For Latex -->

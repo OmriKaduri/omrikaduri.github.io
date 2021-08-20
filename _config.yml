@@ -16,6 +16,7 @@ theme: jekyll-theme-hacker
 plugins:
   - jekyll-feed
   - jekyll-archives
+  - jekyll-sitemap
 
 exclude:
 #   - .sass-cache/
