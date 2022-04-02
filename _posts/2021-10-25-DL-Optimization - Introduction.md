@@ -18,9 +18,9 @@ Over the last decade, deep learning flourished in both academia and industry. Bo
 However, despite those significant improvements in deep learning, the theoretical understanding of its success lags behind. Our understanding ranges from conventional wisdom and intuitions that are based on experiments to deeper analysis of toy problems that do not resemble the true complexity of real-world deep learning architectures. This blog post aims to highlight interesting lessons learned from deep learning theory research that challenged conventional wisdom.
 
 In general, deep learning consists of the following three pillars:
-1. **Expressivity** - What functions  can we express with a neural network? How efficient is one neural network concerning the other in terms of the set of functions they can represent? What inductive biases exist in modern neural networks?
-2. **Optimization** - How can we find the best weights for our neural network for a given task? Can we guarantee to find the best one? How fast can we do it?
-3. **Generalization** - Why does a solution on a training set generalize well to an unseen test set? Can we bound the generalization error?
+1. **Expressivity** - What functions  can we express with a neural network? How efficient is one neural network concerning the other in terms of the set of functions they can represent? What [inductive biases](https://en.wikipedia.org/wiki/Inductive_bias)exist in modern neural networks?
+2. **Optimization** - How can we find the best weights for our neural network for a given task? Can we guarantee to find the best one? How fast can we do it?
+3. **Generalization** - Why does a solution on a training set generalize well to an unseen test set? Can we bound the generalization error?
 
 This post will focus on optimization. The reader is assumed to be familiar with SGD, deep learning, and some background in optimization.
 
