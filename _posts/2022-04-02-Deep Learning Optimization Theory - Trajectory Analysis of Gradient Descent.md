@@ -4,7 +4,7 @@ comments: true
 title:  "Deep Learning Optimization Theory - Trajectory Analysis of Gradient Descent"
 date:   2022-04-02 10:10:10 +0300
 ---
-> A prominent approach in the study of deep learning theory in recent years is analyzing the trajectories followed by gradient descent. This post is an introduction to this approach & my path to understand it a little better.
+> A prominent approach in the study of deep learning theory in recent years has been analyzing the trajectories followed by gradient descent. This post is an introduction to this approach & my path to understanding it a little better.
 
 <!--more-->
 
