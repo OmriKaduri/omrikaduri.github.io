@@ -12,8 +12,8 @@ layout: default
         {{ page.date | date: date_format }}
       </time>
 
-      <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-        by <span itemprop="name">{{ site.author }}</span>
+      <span itemprop="author" itemscope itemtype="http://schema.org/Person"> | {% include reading-time.html %}
+        | <span itemprop="name">{{ site.author }}</span> 
       </span>
 
       <span>
