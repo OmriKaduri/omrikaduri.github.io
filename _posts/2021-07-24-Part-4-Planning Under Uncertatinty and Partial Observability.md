@@ -3,6 +3,8 @@ layout: post
 comments: true
 title:  "From A* to MARL (Part 4 - Planning Under Uncertainty & Partial Observability)"
 date:   2021-08-07 21:40:01 +0300
+tags: POMDP Multi-Agent
+
 ---
 > An intuitive high-level overview of the connection between AI planning theory to current Reinforcement Learning research for multi-agent systems. This part focus on POMDPs and planning under partial observability.
 

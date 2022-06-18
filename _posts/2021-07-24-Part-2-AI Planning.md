@@ -3,6 +3,8 @@ layout: post
 comments: true
 title:  "From A* to MARL (Part 2 - AI Planning)"
 date:   2021-08-07 20:45:01 +0300
+tags: STRIPS Multi-Agent
+
 ---
 > An intuitive high-level overview of the connection between AI planning theory to current Reinforcement Learning research for multi-agent systems. This part focus on AI Planning.
 

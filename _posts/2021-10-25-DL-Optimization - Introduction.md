@@ -1,8 +1,9 @@
 ---
 layout: post
 comments: true
-title:  "Deep Learning Optimization Theory - Introduction"
+title:  "Deep Learning Optimization Theory - Introduction"
 date:   2021-10-25 22:10:01 +0300
+tags: Deep-learning-theory Optimization
 ---
 > Understanding the thoery of optimization in  deep learning is crucial to enable progress. This post provides an introduction to it.
 

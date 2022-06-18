@@ -1,8 +1,9 @@
 ---
 layout: post
 comments: true
-title:  "Using Neural Implicit Representations for Shape and Scene (from DeepSDF to real-time NeRF-based Surface Reconsturction)"
+title:  "Neural Implicit Representations for 3D Shapes and Scenes"
 date:   2022-06-18 10:10:10 +0300
+tags: DeepSDF Surface-Reconstruction NeRF InstantNGP 
 ---
 > In recent years there is an explosion of neural implicit representations that helps solve computer graphic tasks. In this post, I focused on their applicability to three different tasks - shape representation, novel view synthesis, and image-based 3D reconstruction.
 
