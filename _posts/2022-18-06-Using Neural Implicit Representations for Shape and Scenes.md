@@ -5,7 +5,7 @@ title:  "Neural Implicit Representations for 3D Shapes and Scenes"
 date:   2022-06-18 10:10:10 +0300
 tags: DeepSDF Surface-Reconstruction NeRF InstantNGP 
 ---
-> In recent years there is an explosion of neural implicit representations that helps solve computer graphic tasks. In this post, I focused on their applicability to three different tasks - shape representation, novel view synthesis, and image-based 3D reconstruction.
+> In recent years there is an explosion of neural implicit representations that helps solve computer graphic tasks. In this post, I focus on their applicability to three different tasks - shape representation, novel view synthesis, and image-based 3D reconstruction.
 
 <!--more-->
 
@@ -23,7 +23,7 @@ To put it **simply-but-not-accurate**, this post aims to distill the progress of
 
 2. 2019–2020 - How to represent **scenes** with NNs? Specifically, how can a  neural network represent a full scene, with all its fine-grained details from lightning, texture & shapes? 
 
-3. 2021 - 2022 - How can we **understand** scenes with NNs! Specifically, Given the neural scene representation, how can we reconstruct the 3D surfaces in the scene? 
+3. 2021 - 2022 - How can we **understand** scenes with NNs? Specifically, Given the neural scene representation, how can we reconstruct the 3D surfaces in the scene? 
 
 4. 2022 - How can we make it **faster**?
 
@@ -160,7 +160,7 @@ NeRF showed great success in capturing a scene. Yet, while NeRF can generate nov
 
 Recall that an intuitive continuous geometry representation for deep learning is the SDF. Hopefully, we can train a NeRF to predict an SDF value and still use volumetric rendering to train it all end-to-end (and get supervision from the scene images directly, thus reconstructing the geometry without any 3D supervision!). Luckily, at NeurIPS 2021, two interesting papers tackled that specific problem. Their works are dubbed [VolSDF](https://arxiv.org/pdf/2106.12052.pdf) and [NeuS](https://arxiv.org/pdf/2106.10689.pdf) (read as "news").
 
-Both of them suggest training 2 networks -an SDF network, and a color/appearance network. They differ in the way they suggest **transforming the SDF values to density values and using them in volume rendering**. The main idea is as simple as that - we want to transform the SDF values such that points near the surface will receive high alpha values, and points far from it will receive low alpha values. That way, the colors of near-surface points will have the largest effect on the ray's integral. It is crucial that the SDF to density transformation will satisfy the following properties, as described by NeuS:
+Both of them suggest training 2 networks -an SDF network, and a color/appearance network. They differ in the way they suggest **transforming the SDF values to density values and using them in volume rendering**. The main idea is as simple as that - we want to transform the SDF values such that points near the surface will receive high alpha values, and points far from it will receive low alpha values. That way, the colors of near-surface points will have the largest effect on the ray's integral. The SDF to density transformation must satisfy the following properties, as described by NeuS:
 
 1. **Unbiased** - for a given ray, at points where the SDF function produces 0 (i.e., points on the surface) the density value should attain a **locally maximal value**. Note that we only desire locally maximal and not globally since there might be several surface intersections along the ray.
 2. **Occlusion-aware** - When two points have the same SDF value, the point nearer to the camera should have a larger contribution to the final output color.
@@ -178,7 +178,7 @@ While they both suggested a neat way to learn the SDF directly from scene observ
 ## Make it faster ##
 
 ### InstantNGP - Better memory vs compute tradeoff
-Basically, there are two possible directions to make the training & inference of NeRF-based methods faster: sampling **fewer** points along each ray, or sampling **faster**. There are interesting ideas for sampling fewer points, but here I focus on sampling faster.
+There are two possible directions to make the training & inference of NeRF-based methods faster: sampling **fewer** points along each ray, or sampling **faster**. There are interesting ideas for sampling fewer points, but here I focus on sampling faster.
 
 Recall that DeepLS made the sampling at DeepSDF faster by incorporating a learnable voxel grid. However, it traded the sampling efficiency with expensive memory costs, as the memory grows cubically with respect to the grid. How expensive? For a simple grid of size 128 with 16-dimensional latent vectors, one would need to store **~33.6M grid parameters**, regardless of the MLP size (which is typically small, about 100–300K params). Unfortunately, simply making that grid smaller will have a severe impact on the performance and the ability to capture fine-detailed geometry. A better solution is needed.
 
@@ -199,7 +199,7 @@ This process is summarized in the following figure:
 
 However, it is crucial to point out an unintuitive issue regarding InstantNGP. When one uses a hash table, he needs to address the **possibility of collisions** (i.e., two different 3D coordinates that are mapped to the same feature vector) and **how to resolve** such collisions. Traditional computer science literature on this subject is filled with many sophisticated mechanisms and tricks to reduce the possibility of collision and find ways to quickly resolve collisions when they occur. However, InstantNGP simply **relies on the neural network to learn to disambiguate hash collisions itself**.
 
-Note that InstantNGP provides a general recipe to train coordinate-based neural networks in an efficient manner. Specifically, they show how effective their method is for NeRF, as well as for several other tasks not discussed here. To understand how effective their method is, note that the training time of a NeRF network for a single scene was reduced from **~12 hours** to about **5 seconds**. That's about **~8500x faster** in about 2 years.
+Note that InstantNGP provides a general recipe to train coordinate-based neural networks efficiently. Specifically, they show how effective their method is for NeRF, as well as for several other tasks not discussed here. To understand how effective their method is, note that the training time of a NeRF network for a single scene was reduced from **~12 hours** to about **5 seconds**. That's about **~8500x faster** in about 2 years.
 
 ### MonoSDF - surface reconstruction with volumetric rendering, faster! ###
 We learned how to modify NeRF training mechanism to enable explicit SDF representation learning. Also, we learned how to make the NeRF training & inference much faster by incorporating multi-resolution hash tables. [MonoSDF](https://arxiv.org/pdf/2206.00665.pdf) combines both approaches along with **geometric cues** to make the surface reconstruction from posed images faster and more accurate.
