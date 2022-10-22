@@ -230,6 +230,9 @@ The solution proposed in the original Transformer paper is to use trig functions
 
 ![General form]({{ '/assets/images/positional-encoding-formula.png' | relative_url }})
 
+{:.caption}
+* The input position and dimension index denoted with **pos** and **i**, respectively. $$d_model$$ is the positional embedding size.*
+
 That might be obscure - why use trig functions? How do they help us encode the position?
 
 To explain that, let's observe some plots and understand why the trig functions are useful. The code for these plots can be found on my [GitHub page](https://gist.github.com/OmriKaduri/81a1557d9dc01a248e48f3a142496c4a). Note that this positional encoding gives a **matrix** that maps each input position to an embedding vector. In my code, I created this matrix for a sequence with a maximal size of 128 and an embedding dimension of 300. To gain intuition to this positional encoding, let us visualize the embedding vector for the 10-th and the 250-th dimensions:
