@@ -223,7 +223,11 @@ That means that applying the permutation on the input is equal to the permutatio
 
 ## Positional Encoding
 
-A naive suggestion for encoding the position would be simply to add a number to the word embedding that specifies the index of the word in the input sequence. However, that suggestion has several drawbacks and I recommend reading [this blog post](https://towardsdatascience.com/master-positional-encoding-part-i-63c05d90a0c3) to understand why.
+A naive suggestion for encoding the position would be simply to add a number to the word embedding that specifies the index of the word in the input sequence. However, giving integer indices to the model is problematic for (at least) two reasons. First, it will be hard for the model to generalize to sequences with a different length than the sequences that were given in training. Second, it is a [bad practice to give unnormalized integers as input](https://towardsdatascience.com/why-data-should-be-normalized-before-training-a-neural-network-c626b7f66c7d#:~:text=Among%20the%20best%20practices%20for,and%20leads%20to%20faster%20convergence.) to neural networks.  
+
+The next suggestion might be to encode the integer indices by **binary vectors**. For example, the fifth word will be encoded by the binary number 100 (counting from zero). While it is a better solution than before, feeding such discrete vectors  to a network is not a great idea. 
+
+Observe that the LSB bit of the integer indices (recall that, in little-endian, the LSB is the **rightmost** bit, and the MSB is the **leftmost** bit) changes between each consecutive index (0,1,2,3,4 -> 0000, 0001, 0010,0011,1000 observe how the LSB changes), and the MSB bit changes rarely. Intuitively, you can think of these bits as representing different frequencies (the LSB bit has a high frequency, and the MSB bit has a low frequency). Please read [here](https://towardsdatascience.com/master-positional-encoding-part-i-63c05d90a0c3) for more on this intuition. How can we use this intuition to make the binary vectors into continuous representations of the input position?
 
 The solution proposed in the original Transformer paper is to use trig functions (sin and cos) to encode the position. They proposed the following positional encoding:
 
