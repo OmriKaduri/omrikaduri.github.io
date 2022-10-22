@@ -231,7 +231,7 @@ The solution proposed in the original Transformer paper is to use trig functions
 ![General form]({{ '/assets/images/positional-encoding-formula.png' | relative_url }})
 
 {:.caption}
-* The input position and dimension index denoted with **pos** and **i**, respectively. $$d_model$$ is the positional embedding size.*
+*The input position and dimension index denoted with **pos** and **i**, respectively. $$d_model$$ is the positional embedding size.*
 
 That might be obscure - why use trig functions? How do they help us encode the position?
 
